@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.serialization)
 }
 
 kotlin {
@@ -25,7 +26,20 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+            implementation(libs.datetime)
+            implementation(libs.coroutines.core)
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization)
+        }
+        androidMain.dependencies {
+            implementation(libs.ktor.client.android)
+            implementation(libs.androidx.lifecycle.viewmodel.ktx)
+            implementation(libs.androidx.lifecycle.runtime.compose)
+            implementation(libs.androidx.lifecycle.viewmodel.compose)
+        }
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
